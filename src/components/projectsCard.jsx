@@ -4,7 +4,7 @@ import { ArrowUpRight } from "lucide-react";
 
 export default function ProjectsCards({projects, Reveal}) {
     return (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8" >
                     {projects.map((project, i) => (
                       <Reveal key={project.title} delay={i * 120}>
                         <div className="group bg-[var(--secondary-color)]/40 border border-white/5 rounded-2xl overflow-hidden hover:border-[var(--primary-color)]/50 hover:-translate-y-1 transition-all duration-300 flex flex-col h-full">
@@ -37,7 +37,7 @@ export default function ProjectsCards({projects, Reveal}) {
                             </div>
         
                             <a
-                              href="#"
+                              href={project.link}
                               className="inline-flex items-center gap-2 text-sm font-semibold text-white group-hover:text-[var(--primary-color)] transition-colors"
                             >
                               View Project <ArrowUpRight size={16} />

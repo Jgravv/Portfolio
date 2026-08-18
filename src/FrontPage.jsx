@@ -87,9 +87,13 @@ export default function PortfolioPage() {
     { value: "5+", label: "Certifications" },
   ];
 
+const FarmtechLink = "https://farmtech-v2-farmer.web.app/";
+const ClutchLink = "https://clutch-culture-zeta.vercel.app/";
+
   const projects = [
     {
       image: FarmTech,
+      link: FarmtechLink,
       tag: "Web App",
       title: "Project One",
       description:
@@ -98,6 +102,7 @@ export default function PortfolioPage() {
     },
     {
       image: ClutchCulture,
+      link: ClutchLink,
       tag: "Web App",
       title: "Project Two",
       description:
