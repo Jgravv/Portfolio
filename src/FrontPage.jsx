@@ -95,7 +95,7 @@ const ClutchLink = "https://clutch-culture-zeta.vercel.app/";
       image: FarmTech,
       link: FarmtechLink,
       tag: "Web App",
-      title: "Project One",
+      title: "FarmTech",
       description:
         "FarmTech is an agricultural mobile and web system that uses machine learning, weather data, soil monitoring, and financial tools to help Cavite farmers make better farming decisions.",
       tech: ["React", "Flutter", "Firebase"],
@@ -104,7 +104,7 @@ const ClutchLink = "https://clutch-culture-zeta.vercel.app/";
       image: ClutchCulture,
       link: ClutchLink,
       tag: "Web App",
-      title: "Project Two",
+      title: "Clutch Culture",
       description:
         "Clutch Culture is an automotive community platform that allows car enthusiasts to create posts, discuss topics, interact through comments and likes, and explore car-related content.",
       tech: ["React", "Tailwind CSS", "Supabase"],
