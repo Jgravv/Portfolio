@@ -1,9 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
-import { FileText, ArrowUpRight, ArrowRight, Mail,MapPin, Send, Code2,Server,Smartphone, X} from "lucide-react";
+import { FileText, ArrowUpRight, ArrowRight, Mail, MapPin, Send, Code2, Server, Smartphone, X } from "lucide-react";
 import GradPic from './assets/images/gradpic.png'
-import FarmTech from './assets/images/farmtech.png'
-import ClutchCulture from './assets/images/clutchculture.png'
-import Inkspire from './assets/images/inkspire.png'
+import FarmTechThumbnail from './assets/images/farmtech.png'
+import ClutchCultureThumbnail from './assets/images/clutchculture.png'
+import InkspireThumbnail from './assets/images/inkspire.png'
+import FarmTech from './assets/images/farmtechhome.png'
+import ClutchCulture from './assets/images/clutchculturehome.png'
+import Inkspire from './assets/images/inkspirehome.png'
 import Typed from "typed.js";
 import TechStackCards from "./components/techStackCards"
 import ProjectsCards from "./components/projectsCard"
@@ -32,9 +35,8 @@ function Reveal({ children, className = "", delay = 0, as: Tag = "div" }) {
   return (
     <Tag
       ref={ref}
-      className={`transition-all duration-700 ease-out ${
-        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-      } ${className}`}
+      className={`transition-all duration-700 ease-out ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        } ${className}`}
       style={{ transitionDelay: visible ? `${delay}ms` : "0ms" }}
     >
       {children}
@@ -82,40 +84,67 @@ export default function PortfolioPage() {
   const activeSection = useActiveSection(navLinks.map((l) => l.id));
 
   const stats = [
-     { value: "8+", label: "Projects Built" },
+    { value: "8+", label: "Projects Built" },
     { value: "10+", label: "Technologies" },
     { value: "5+", label: "Certifications" },
   ];
 
-const FarmtechLink = "https://farmtech-v2-farmer.web.app/";
-const ClutchLink = "https://clutch-culture-zeta.vercel.app/";
+  const FarmtechLink = "https://farmtech-v2-farmer.web.app/";
+  const ClutchLink = "https://clutch-culture-zeta.vercel.app/";
 
   const projects = [
     {
       image: FarmTech,
-      link: FarmtechLink,
-      tag: "Web App",
+      thumbnailimage: FarmTechThumbnail,
+      link: "https://farmtech-v2-farmer.web.app/",
+      tag: "Mobile & Web App",
       title: "FarmTech",
       description:
         "FarmTech is an agricultural mobile and web system that uses machine learning, weather data, soil monitoring, and financial tools to help Cavite farmers make better farming decisions.",
-      tech: ["React", "Flutter", "Firebase"],
+      tech: ["Flutter", "React", "Firebase", "Python", "Flask"],
+      features: [
+        "Intelligent Crop Recommendation",
+        "Weather Forecasting",
+        "Crop & Harvest Tracking",
+        "Soil pH Monitoring",
+        "Farming Guides",
+        "Financial Calculator",
+      ],
     },
+
     {
       image: ClutchCulture,
-      link: ClutchLink,
+      thumbnailimage: ClutchCultureThumbnail,
+      link: "https://clutch-culture-zeta.vercel.app/",
       tag: "Web App",
       title: "Clutch Culture",
       description:
         "Clutch Culture is an automotive community platform that allows car enthusiasts to create posts, discuss topics, interact through comments and likes, and explore car-related content.",
       tech: ["React", "Tailwind CSS", "Supabase"],
+      features: [
+        "User Authentication",
+        "Create Posts",
+        "Comments",
+        "Likes",
+        "Categories",
+        "Search",
+      ],
     },
+
     {
       image: Inkspire,
+      thumbnailimage: InkspireThumbnail,
       tag: "Web App",
       title: "Inkspire",
       description:
         "Inkspire is a book community web application where readers can discover books, participate in discussions, share reviews and recommendations, and connect with other readers.",
       tech: ["React Native", "Firebase"],
+      features: [
+        "Book Discussions",
+        "Reviews",
+        "Recommendations",
+        "Community Interaction",
+      ],
     },
   ];
 
@@ -156,66 +185,66 @@ const ClutchLink = "https://clutch-culture-zeta.vercel.app/";
 
 
 
-const typedRef = useRef(null);
+  const typedRef = useRef(null);
 
-useEffect(() => {
-  const typed = new Typed(typedRef.current, {
-    strings: [
-      "Frontend Developer",
-      "Backend Developer",
-      "Mobile Developer",
-    ],
-    typeSpeed: 30,
-    backSpeed: 50,
-    backDelay: 2000,
-    loop: true,
-    cursorChar: "|",
-    showCursor: true,
-  });
+  useEffect(() => {
+    const typed = new Typed(typedRef.current, {
+      strings: [
+        "Frontend Developer",
+        "Backend Developer",
+        "Mobile Developer",
+      ],
+      typeSpeed: 30,
+      backSpeed: 50,
+      backDelay: 2000,
+      loop: true,
+      cursorChar: "|",
+      showCursor: true,
+    });
 
-  return () => {
-    typed.destroy();
-  };
-}, []);
+    return () => {
+      typed.destroy();
+    };
+  }, []);
 
   const downloadCV = () => {
-  const link = document.createElement("a");
-  link.href = "/Gravillo_CV.pdf"; // file in the public folder
-  link.download = "Gravillo_CV";
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-};
+    const link = document.createElement("a");
+    link.href = "/Gravillo_CV.pdf"; // file in the public folder
+    link.download = "Gravillo_CV";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
-const handleContactChange = (e) => {
-  const { name, value } = e.target;
-  setContactForm((prev) => ({
-    ...prev,
-    [name]: value,
-  }));
-};
+  const handleContactChange = (e) => {
+    const { name, value } = e.target;
+    setContactForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
-const handleContactSubmit = (e) => {
-  e.preventDefault();
-  const name = contactForm.name.trim();
-  const email = contactForm.email.trim();
-  const message = contactForm.message.trim();
+  const handleContactSubmit = (e) => {
+    e.preventDefault();
+    const name = contactForm.name.trim();
+    const email = contactForm.email.trim();
+    const message = contactForm.message.trim();
 
-  if (!name || !email || !message) {
-    setSubmitNotice("Please fill out name, email, and message before sending.");
-    return;
-  }
+    if (!name || !email || !message) {
+      setSubmitNotice("Please fill out name, email, and message before sending.");
+      return;
+    }
 
-  const subject = encodeURIComponent(`Portfolio inquiry from ${name}`);
-const body = encodeURIComponent(
-  `${message}\n\n—\nSent from your portfolio contact form\n${name} · ${email}`
-);
-const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=gravillojerome@gmail.com&su=${subject}&body=${body}`;
+    const subject = encodeURIComponent(`Portfolio inquiry from ${name}`);
+    const body = encodeURIComponent(
+      `${message}\n\n—\nSent from your portfolio contact form\n${name} · ${email}`
+    );
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=gravillojerome@gmail.com&su=${subject}&body=${body}`;
 
-  window.open(gmailUrl, "_blank", "noopener,noreferrer");
-  setSubmitNotice("Opening Gmail compose with your message draft.");
-  setContactForm({ name: "", email: "", message: "" });
-};
+    window.open(gmailUrl, "_blank", "noopener,noreferrer");
+    setSubmitNotice("Opening Gmail compose with your message draft.");
+    setContactForm({ name: "", email: "", message: "" });
+  };
 
   return (
     <div className="min-h-screen bg-[var(--background-color)] text-[var(--text-color)] font-mono">
@@ -235,9 +264,9 @@ const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=gravillojerome@g
 
       {/* Navbar */}
       <header className="sticky top-0 z-50 px-6 pt-6 bg-[var(--background-color)]/80 backdrop-blur">
-        <NavbarPage 
-          navLinks = {navLinks}
-          activeSection = {activeSection}
+        <NavbarPage
+          navLinks={navLinks}
+          activeSection={activeSection}
         />
       </header>
 
@@ -247,7 +276,7 @@ const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=gravillojerome@g
             <p className="text-lg text-white mb-2">Hi, I'm Jerome T. Gravillo</p>
 
             <h1 className="text-5xl font-bold text-[var(--primary-color)] leading-tight mb-6">
-            <span ref={typedRef}></span>
+              <span ref={typedRef}></span>
             </h1>
 
             <p className="text-gray-400 max-w-md mb-10 leading-relaxed">
@@ -270,24 +299,24 @@ const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=gravillojerome@g
 
             <div className="flex items-center gap-4 mb-12">
               <button onClick={downloadCV} className="flex items-center gap-2 bg-[var(--primary-color)] hover:brightness-110 transition-all px-6 py-3 rounded-full font-semibold cursor-pointer">
-             <FileText size={16} />Download CV 
+                <FileText size={16} />Download CV
               </button>
-                <div className="flex items-center gap-4 hover:">
-              <button className="flex items-center gap-2 border border-white/20 text-white hover:bg-white/5 transition-colors px-6 py-3 rounded-lg font-semibold text-sm">
-                <ArrowUpRight size={16} /> View Projects
-              </button>
-            </div>
-             
+              <div className="flex items-center gap-4 hover:">
+                <button className="flex items-center gap-2 border border-white/20 text-white hover:bg-white/5 transition-colors px-6 py-3 rounded-lg font-semibold text-sm">
+                  <ArrowUpRight size={16} /> View Projects
+                </button>
+              </div>
+
             </div>
 
             <div className="flex items-center gap-4">
-               <SocialIcon href="https://www.facebook.com/jeromegravillo18">
-                    <FacebookIcon/>
-                  </SocialIcon>
-                    <SocialIcon href="https://www.instagram.com/romeee18_/">
+              <SocialIcon href="https://www.facebook.com/jeromegravillo18">
+                <FacebookIcon />
+              </SocialIcon>
+              <SocialIcon href="https://www.instagram.com/romeee18_/">
                 <InstagramIcon />
               </SocialIcon>
-                    <SocialIcon href="https://github.com/Jgravv">
+              <SocialIcon href="https://github.com/Jgravv">
                 <GithubIcon />
               </SocialIcon>
               <SocialIcon href="https://www.linkedin.com/in/jerome-gravillo/">
@@ -298,15 +327,15 @@ const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=gravillojerome@g
           </Reveal>
 
           <Reveal delay={150}>
-        <div className="relative flex justify-center lg:justify-end">
-            <div className="relative w-[320px] sm:w-[380px] aspect-[3/4] rounded-[2.5rem] border-2 border-[var(--primary-color)]/60 overflow-hidden bg-[var(--secondary-color)]">
-              <img
-                src={GradPic}
-                alt="Graduation photo"
-                className="w-full h-full object-cover object-top"
-              />
+            <div className="relative flex justify-center lg:justify-end">
+              <div className="relative w-[320px] sm:w-[380px] aspect-[3/4] rounded-[2.5rem] border-2 border-[var(--primary-color)]/60 overflow-hidden bg-[var(--secondary-color)]">
+                <img
+                  src={GradPic}
+                  alt="Graduation photo"
+                  className="w-full h-full object-cover object-top"
+                />
+              </div>
             </div>
-          </div>
           </Reveal>
         </main>
       </section>
@@ -314,14 +343,14 @@ const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=gravillojerome@g
       <section id="about" className="scroll-mt-28">
         <main className="relative max-w-7xl mx-auto px-6 pt-10 pb-20 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           <Reveal>
-            
+
             <h2 className="text-6xl sm:text-7xl font-extrabold leading-[0.95] mb-6">
-                          ABOUT ME
+              ABOUT ME
 
             </h2>
 
             <p className="text-gray-400 max-w-lg leading-relaxed mb-6">
-             Fresh graduate from National University – Dasmariñas, specializing in Mobile and Web Applications, with a passion for frontend and mobile development. Skilled in building clean, responsive, and user-friendly applications using modern technologies. Eager to apply my skills and grow as a developer.
+              Fresh graduate from National University – Dasmariñas, specializing in Mobile and Web Applications, with a passion for frontend and mobile development. Skilled in building clean, responsive, and user-friendly applications using modern technologies. Eager to apply my skills and grow as a developer.
             </p>
 
             <div className="bg-[var(--secondary-color)]/50 border border-white/5 rounded-xl px-6 py-4 mb-8 max-w-xl">
@@ -331,7 +360,7 @@ const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=gravillojerome@g
               </p>
             </div>
 
-          
+
           </Reveal>
 
           <Reveal delay={150}>
@@ -348,11 +377,11 @@ const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=gravillojerome@g
                 Tech Stack<span className="text-[var(--primary-color)]">.</span>
               </h3>
             </Reveal>
-              <TechStackCards
+            <TechStackCards
               techStacks={techStacks}
               Reveal={Reveal}
-              />
-            
+            />
+
           </div>
         </main>
       </section>
@@ -371,12 +400,12 @@ const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=gravillojerome@g
               A selection of projects I've worked on.
             </p>
           </Reveal>
-              <ProjectsCards 
-              projects ={projects}
-                  Reveal={Reveal}
+          <ProjectsCards
+            projects={projects}
+            Reveal={Reveal}
 
-              />
-          
+          />
+
         </main>
       </section>
 
@@ -414,18 +443,18 @@ const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=gravillojerome@g
                 </div>
 
                 <div className="flex items-center gap-4">
-                   <SocialIcon href="https://www.facebook.com/jeromegravillo18">
-                    <FacebookIcon/>
+                  <SocialIcon href="https://www.facebook.com/jeromegravillo18">
+                    <FacebookIcon />
                   </SocialIcon>
-                    <SocialIcon href="https://www.instagram.com/romeee18_/">
-                <InstagramIcon />
-              </SocialIcon>
-                    <SocialIcon href="https://github.com/Jgravv">
-                <GithubIcon />
-              </SocialIcon>
-              <SocialIcon href="https://www.linkedin.com/in/jerome-gravillo/">
-                <LinkedinIcon />
-              </SocialIcon>
+                  <SocialIcon href="https://www.instagram.com/romeee18_/">
+                    <InstagramIcon />
+                  </SocialIcon>
+                  <SocialIcon href="https://github.com/Jgravv">
+                    <GithubIcon />
+                  </SocialIcon>
+                  <SocialIcon href="https://www.linkedin.com/in/jerome-gravillo/">
+                    <LinkedinIcon />
+                  </SocialIcon>
                 </div>
               </div>
 
@@ -476,7 +505,7 @@ const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=gravillojerome@g
                   type="submit"
                   className="flex items-center justify-center gap-2 bg-[var(--primary-color)] hover:brightness-110 transition-all px-6 py-3 rounded-lg font-semibold text-sm mt-2"
                 >
-                  Send Message <Send size={16} />
+                  Send Message
                 </button>
                 {submitNotice && (
                   <p className="text-xs text-gray-400">{submitNotice}</p>
@@ -491,7 +520,7 @@ const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=gravillojerome@g
         </main>
       </section>
 
-    
+
     </div>
   );
 }

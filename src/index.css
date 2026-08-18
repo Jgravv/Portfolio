@@ -7,3 +7,27 @@
   --text-color: #ffffff;
 }
 
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color) var(--secondary-color);
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--secondary-color);
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 999px;
+  border: 2px solid var(--secondary-color);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #ff2a2a;
+}
+
