@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FileText, ArrowUpRight, ArrowRight, Mail,MapPin, Send, Code2,Server,Smartphone, X} from "lucide-react";
 import GradPic from './assets/images/gradpic.png'
+import FarmTech from './assets/images/farmtech.png'
+import ClutchCulture from './assets/images/clutchculture.png'
+import Inkspire from './assets/images/inkspire.png'
 import Typed from "typed.js";
 import TechStackCards from "./components/techStackCards"
 import ProjectsCards from "./components/projectsCard"
@@ -62,6 +65,13 @@ function useActiveSection(ids) {
 }
 
 export default function PortfolioPage() {
+  const [contactForm, setContactForm] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [submitNotice, setSubmitNotice] = useState("");
+
   const navLinks = [
     { label: "HOME", href: "#home", id: "home" },
     { label: "ABOUT", href: "#about", id: "about" },
@@ -79,24 +89,27 @@ export default function PortfolioPage() {
 
   const projects = [
     {
+      image: FarmTech,
       tag: "Web App",
       title: "Project One",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vel feugiat dui. Nullam eget maximus leo, a commodo sem.",
-      tech: ["React", "Tailwind", "Node.js"],
+        "FarmTech is an agricultural mobile and web system that uses machine learning, weather data, soil monitoring, and financial tools to help Cavite farmers make better farming decisions.",
+      tech: ["React", "Flutter", "Firebase"],
     },
     {
-      tag: "Website",
+      image: ClutchCulture,
+      tag: "Web App",
       title: "Project Two",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vel feugiat dui. Nullam eget maximus leo, a commodo sem.",
-      tech: ["Next.js", "TypeScript"],
+        "Clutch Culture is an automotive community platform that allows car enthusiasts to create posts, discuss topics, interact through comments and likes, and explore car-related content.",
+      tech: ["React", "Tailwind CSS", "Supabase"],
     },
     {
-      tag: "Mobile",
-      title: "Project Three",
+      image: Inkspire,
+      tag: "Web App",
+      title: "Inkspire",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vel feugiat dui. Nullam eget maximus leo, a commodo sem.",
+        "Inkspire is a book community web application where readers can discover books, participate in discussions, share reviews and recommendations, and connect with other readers.",
       tech: ["React Native", "Firebase"],
     },
   ];
@@ -168,6 +181,37 @@ useEffect(() => {
   link.click();
   document.body.removeChild(link);
 };
+
+const handleContactChange = (e) => {
+  const { name, value } = e.target;
+  setContactForm((prev) => ({
+    ...prev,
+    [name]: value,
+  }));
+};
+
+const handleContactSubmit = (e) => {
+  e.preventDefault();
+  const name = contactForm.name.trim();
+  const email = contactForm.email.trim();
+  const message = contactForm.message.trim();
+
+  if (!name || !email || !message) {
+    setSubmitNotice("Please fill out name, email, and message before sending.");
+    return;
+  }
+
+  const subject = encodeURIComponent(`Portfolio inquiry from ${name}`);
+const body = encodeURIComponent(
+  `${message}\n\n—\nSent from your portfolio contact form\n${name} · ${email}`
+);
+const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=gravillojerome@gmail.com&su=${subject}&body=${body}`;
+
+  window.open(gmailUrl, "_blank", "noopener,noreferrer");
+  setSubmitNotice("Opening Gmail compose with your message draft.");
+  setContactForm({ name: "", email: "", message: "" });
+};
+
   return (
     <div className="min-h-screen bg-[var(--background-color)] text-[var(--text-color)] font-mono">
       <style>{`
@@ -220,21 +264,29 @@ useEffect(() => {
             </div>
 
             <div className="flex items-center gap-4 mb-12">
-              <button className="flex items-center gap-2 bg-[var(--primary-color)] hover:brightness-110 transition-all px-6 py-3 rounded-full font-semibold">
-                Hire me <ArrowRight size={18} />
+              <button onClick={downloadCV} className="flex items-center gap-2 bg-[var(--primary-color)] hover:brightness-110 transition-all px-6 py-3 rounded-full font-semibold cursor-pointer">
+             <FileText size={16} />Download CV 
               </button>
+                <div className="flex items-center gap-4 hover:">
+              <button className="flex items-center gap-2 border border-white/20 text-white hover:bg-white/5 transition-colors px-6 py-3 rounded-lg font-semibold text-sm">
+                <ArrowUpRight size={16} /> View Projects
+              </button>
+            </div>
              
             </div>
 
             <div className="flex items-center gap-4">
-               <SocialIcon>
+               <SocialIcon href="https://www.facebook.com/jeromegravillo18">
                     <FacebookIcon/>
                   </SocialIcon>
-                    <SocialIcon>
+                    <SocialIcon href="https://www.instagram.com/romeee18_/">
                 <InstagramIcon />
               </SocialIcon>
-              <SocialIcon>
+                    <SocialIcon href="https://github.com/Jgravv">
                 <GithubIcon />
+              </SocialIcon>
+              <SocialIcon href="https://www.linkedin.com/in/jerome-gravillo/">
+                <LinkedinIcon />
               </SocialIcon>
 
             </div>
@@ -274,20 +326,13 @@ useEffect(() => {
               </p>
             </div>
 
-            <div className="flex items-center gap-4 hover:">
-              <button onClick={downloadCV} className="flex items-center gap-2 bg-white text-black hover:bg-gray-200 transition-colors px-6 py-3 rounded-lg font-semibold text-sm cursor-pointer" >
-                <FileText size={16} /> Download CV
-              </button>
-              <button className="flex items-center gap-2 border border-white/20 text-white hover:bg-white/5 transition-colors px-6 py-3 rounded-lg font-semibold text-sm">
-                <ArrowUpRight size={16} /> View Projects
-              </button>
-            </div>
+          
           </Reveal>
 
           <Reveal delay={150}>
             <div className="flex justify-center lg:justify-end">
               <div className="w-[340px] h-[340px] sm:w-[420px] sm:h-[420px] rounded-full border border-white/10 bg-[var(--secondary-color)] flex items-center justify-center">
-                <span className="text-gray-500 text-sm"> pic </span>
+                <span className="text-gray-500 text-sm"> </span>
               </div>
             </div>
           </Reveal>
@@ -364,26 +409,33 @@ useEffect(() => {
                 </div>
 
                 <div className="flex items-center gap-4">
-                   <SocialIcon>
-                    <FacebookIcon />
+                   <SocialIcon href="https://www.facebook.com/jeromegravillo18">
+                    <FacebookIcon/>
                   </SocialIcon>
-                  <SocialIcon>
-                    <InstagramIcon />
-                  </SocialIcon>
-                  <SocialIcon>
-                    <GithubIcon />
-                  </SocialIcon>
+                    <SocialIcon href="https://www.instagram.com/romeee18_/">
+                <InstagramIcon />
+              </SocialIcon>
+                    <SocialIcon href="https://github.com/Jgravv">
+                <GithubIcon />
+              </SocialIcon>
+              <SocialIcon href="https://www.linkedin.com/in/jerome-gravillo/">
+                <LinkedinIcon />
+              </SocialIcon>
                 </div>
               </div>
 
-              <form className="flex flex-col gap-4">
+              <form className="flex flex-col gap-4" onSubmit={handleContactSubmit}>
                 <div>
                   <label className="text-xs tracking-widest text-gray-500 mb-2 block">
                     NAME
                   </label>
                   <input
                     type="text"
+                    name="name"
+                    value={contactForm.name}
+                    onChange={handleContactChange}
                     placeholder="Your name"
+                    required
                     className="w-full bg-[var(--background-color)] border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-[var(--primary-color)] transition-colors"
                   />
                 </div>
@@ -393,7 +445,11 @@ useEffect(() => {
                   </label>
                   <input
                     type="email"
+                    name="email"
+                    value={contactForm.email}
+                    onChange={handleContactChange}
                     placeholder="you@example.com"
+                    required
                     className="w-full bg-[var(--background-color)] border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-[var(--primary-color)] transition-colors"
                   />
                 </div>
@@ -403,7 +459,11 @@ useEffect(() => {
                   </label>
                   <textarea
                     rows={4}
+                    name="message"
+                    value={contactForm.message}
+                    onChange={handleContactChange}
                     placeholder="Tell me about your project..."
+                    required
                     className="w-full bg-[var(--background-color)] border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-[var(--primary-color)] transition-colors resize-none"
                   />
                 </div>
@@ -413,6 +473,9 @@ useEffect(() => {
                 >
                   Send Message <Send size={16} />
                 </button>
+                {submitNotice && (
+                  <p className="text-xs text-gray-400">{submitNotice}</p>
+                )}
               </form>
             </div>
           </Reveal>
@@ -428,9 +491,24 @@ useEffect(() => {
   );
 }
 
-function SocialIcon({ children }) {
+function SocialIcon({ children, href }) {
+  const className = "w-10 h-10 rounded-full bg-[var(--secondary-color)] border border-white/5 flex items-center justify-center hover:border-[var(--primary-color)] hover:text-[var(--primary-color)] hover:-translate-y-0.5 transition-all cursor-pointer";
+
+  if (href) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={className}
+      >
+        {children}
+      </a>
+    );
+  }
+
   return (
-    <div className="w-10 h-10 rounded-full bg-[var(--secondary-color)] border border-white/5 flex items-center justify-center hover:border-[var(--primary-color)] hover:text-[var(--primary-color)] hover:-translate-y-0.5 transition-all cursor-pointer">
+    <div className={className}>
       {children}
     </div>
   );
@@ -448,6 +526,14 @@ function GithubIcon() {
   return (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
       <path d="M12 .5C5.65.5.5 5.66.5 12.02c0 5.09 3.29 9.4 7.86 10.93.58.1.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.78 1.2 1.78 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.56-.29-5.26-1.28-5.26-5.7 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.47.11-3.06 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.77.12 3.06.74.8 1.18 1.83 1.18 3.09 0 4.43-2.7 5.4-5.28 5.69.42.36.78 1.07.78 2.17 0 1.56-.02 2.82-.02 3.2 0 .31.21.67.8.56A10.53 10.53 0 0 0 23.5 12c0-6.35-5.15-11.5-11.5-11.5z" />
+    </svg>
+  );
+}
+
+function LinkedinIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M20.45 20.45h-3.56v-5.58c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.95v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.26 2.37 4.26 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z" />
     </svg>
   );
 }

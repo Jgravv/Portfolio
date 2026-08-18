@@ -10,7 +10,7 @@ export default function ProjectsCards({projects, Reveal}) {
                         <div className="group bg-[var(--secondary-color)]/40 border border-white/5 rounded-2xl overflow-hidden hover:border-[var(--primary-color)]/50 hover:-translate-y-1 transition-all duration-300 flex flex-col h-full">
                           <div className="aspect-video bg-[var(--secondary-color)] flex items-center justify-center border-b border-white/5">
                             <span className="text-gray-500 text-sm">
-                              pic
+                              <img src={project.image} alt="" />
                             </span>
                           </div>
         
